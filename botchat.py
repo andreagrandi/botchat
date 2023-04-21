@@ -13,9 +13,10 @@ def conversation(input_text):
     bot_1_response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "user", "content": input_text}
+            {"role": "assistant", "content": input_text}
         ],
         max_tokens=MAX_TOKENS,
+        presence_penalty=0.5,
         api_key=OPENAI_API_KEY_1,
     )
 
@@ -27,6 +28,7 @@ def conversation(input_text):
             {"role": "user", "content": bot_1_response.choices[0].message.content}
         ],
         max_tokens=MAX_TOKENS,
+        presence_penalty=0.5,
         api_key=OPENAI_API_KEY_2,
     )
 
@@ -40,7 +42,9 @@ def main():
     input_text = input("Please enter your message: ")
     for i in range(CONVERSATION_ITERATIONS):
         input_text = conversation(input_text)
-        time.sleep(1)
+        # There seems to be a limit of 3 requests/minute so with a delay of 12 seconds
+        # each API call from different keys should be allowed.
+        time.sleep(12)
 
 
 if __name__ == '__main__':
