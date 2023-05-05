@@ -33,6 +33,7 @@ format = {
     "yellow": "\033[93m",
     "bold": "\033[01m",
     "reset": "\033[0m",
+    "clear": "\033c",
 }
 
 # Define a function to simulate a conversation between two bots
@@ -111,7 +112,8 @@ def conversation(bot_1_system_message, bot_2_system_message, messages):
 def main():
     # Print header and ASCII art
     print(
-        format["yellow"]
+        format["clear"]
+        + format["yellow"]
         + "\n~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~\n"
         + format["reset"]
     )
